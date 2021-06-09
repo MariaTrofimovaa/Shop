@@ -1,7 +1,7 @@
 import React from "react";
 import { PhoneColorsListItem, PhoneItemContainer } from "./PhoneListItemStyled";
 
-const PhoneListItem = ({ phone }) => {
+const PhoneListItem = ({ phone, addToCart }) => {
   // const {name, image, isSale, description, price} = phone;
   return (
     <PhoneItemContainer>
@@ -21,6 +21,9 @@ const PhoneListItem = ({ phone }) => {
         <p>
           Цена: <span>{phone.price}</span>
         </p>
+        <button type="button" onClick={() => addToCart(phone)}>
+          Добавить в корзину
+        </button>
       </div>
     </PhoneItemContainer>
   );

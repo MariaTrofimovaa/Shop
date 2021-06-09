@@ -17,3 +17,18 @@ code {
   margin: 0;
   box-sizing: border-box;
 }
+
+button {
+  background-color: rgb(149, 185, 252);
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+  border-radius: 14px;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(156, 145, 145);
+}
