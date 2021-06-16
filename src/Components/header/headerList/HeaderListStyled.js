@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const HeaderNavigation = styled.nav`
   .headerList {
     display: flex;
+    flex-direction: column;
     list-style: none;
     align-items: center;
   }
@@ -20,4 +21,14 @@ export const HeaderNavigation = styled.nav`
   .headerListLink:hover {
     color: red;
   }
+
+  @media (min-width: 768px) {
+    .headerList {
+      flex-direction: row;
+    }
+  }
+
+  /* @media (min-width: 1024px) {
+   
+  } */
 `;

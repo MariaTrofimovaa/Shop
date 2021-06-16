@@ -1,7 +1,7 @@
 import React from "react";
 import CartListItem from "./cartListItem/CartListItem";
 
-const CartList = ({ cart, removeFromCart, removeAllFromCart }) => {
+const CartList = ({ cart, removeFromCart, createOrder }) => {
   return (
     <>
       {cart.length ? (
@@ -12,11 +12,12 @@ const CartList = ({ cart, removeFromCart, removeAllFromCart }) => {
                 product={product}
                 key={product.id}
                 removeFromCart={removeFromCart}
-                removeAllFromCart={removeAllFromCart}
               />
             ))}
           </ul>
-          <button type="button">Оформить заказ</button>
+          <button type="button" onClick={createOrder}>
+            Оформить заказ
+          </button>
         </>
       ) : (
         <p>Добавьте товары в корзину</p>

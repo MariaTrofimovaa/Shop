@@ -4,9 +4,10 @@ import LaptopListItem from "./laptopListItem/LaptopListItem";
 const LaptopList = ({ laptops }) => {
   return (
     <ul>
-      {laptops.map((laptop) => (
+      <h2>LaptopList</h2>
+      {/* {laptops.map((laptop) => (
         <LaptopListItem laptop={laptop} key={laptop.id} />
-      ))}
+      ))} */}
     </ul>
   );
 };

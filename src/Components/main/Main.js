@@ -1,16 +1,66 @@
 import React, { Component } from "react";
-import data from "../../data";
+import { Switch, Route } from "react-router-dom";
+import HomePage from "../../pages/homePage/HomePage";
+import ProductsPage from "../../pages/productsPage/ProductsPage";
+import CartPage from "../../pages/cartPage/CartPage";
+// import data from "../../data";
+import { createNewOrder, getAllAdvByCategory } from "../../services/api";
+import AdvForm from "../admin/AdvForm";
 import CartList from "../cart/CartList";
-// import LaptopList from "../laptopList/LaptopList";
+import LaptopList from "../laptopList/LaptopList";
 import PhoneList from "../phoneList/PhoneList";
 import Section from "../section/Section";
-
-// console.dir(Component);
+import { mainRotes } from "../../routes/mainRoutes";
 
 class Main extends Component {
   state = {
     cart: [],
+    phones: [],
+    laptops: [],
   };
+
+  componentDidMount() {
+    this.getPhones();
+    this.getLaptops();
+  }
+
+  getPhones = async () => {
+    const response = await getAllAdvByCategory("phones");
+
+    if (response) {
+      const phones = Object.keys(response).map((key) => ({
+        id: key,
+        ...response[key],
+      }));
+
+      this.setState({ phones: phones });
+    }
+  };
+
+  getLaptops = async () => {
+    const response = await getAllAdvByCategory("laptops");
+
+    if (response) {
+      const laptops = Object.keys(response).map((key) => ({
+        id: key,
+        ...response[key],
+      }));
+
+      this.setState({ laptops });
+    }
+  };
+
+  createOrder = async () => {
+    await createNewOrder(this.state.cart);
+    this.removeAllFromCart();
+  };
+
+  addProduct = (category, product) => {
+    this.setState((prevState) => ({
+      [category]: [...prevState[category], product],
+    }));
+  };
+
   // основной способ добавления элемента
   addToCart = (product) =>
     this.setState((prevState) => ({ cart: [...prevState.cart, product] }));
@@ -27,21 +77,35 @@ class Main extends Component {
   render() {
     return (
       <main>
+        <Switch>
+          {mainRotes.map((route) => (
+            <Route
+              path={route.path}
+              exact={route.exact}
+              component={route.component}
+              key={route.path}
+            />
+          ))}
+        </Switch>
+        {/* <Section title="Новое объявление">
+          <AdvForm addProduct={this.addProduct} />
+        </Section>
+
         <Section title="Корзина">
           <CartList
             cart={this.state.cart}
             removeFromCart={this.removeFromCart}
-            removeAllFromCart={this.removeAllFromCart}
+            createOrder={this.createOrder}
           />
         </Section>
 
         <Section title="Мобильные телефоны">
-          <PhoneList phones={data.phones} addToCart={this.addToCart} />
+          <PhoneList phones={this.state.phones} addToCart={this.addToCart} />
         </Section>
 
-        {/* <Section title="Ноутбуки">
-        <LaptopList laptops={data.laptops} />
-      </Section> */}
+        <Section title="Ноутбуки">
+          <LaptopList laptops={this.state.laptops} />
+        </Section> */}
       </main>
     );
   }

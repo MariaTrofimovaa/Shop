@@ -5,9 +5,10 @@ import { PhoneListContainer } from "./PhoneListStyled";
 const PhoneList = ({ phones, addToCart }) => {
   return (
     <PhoneListContainer>
-      {phones.map((phone) => (
+      <h2>Phone List</h2>
+      {/* {phones.map((phone) => (
         <PhoneListItem phone={phone} key={phone.id} addToCart={addToCart} />
-      ))}
+      ))} */}
     </PhoneListContainer>
   );
 };

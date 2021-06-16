@@ -18,4 +18,12 @@ export const HeaderContainer = styled.header`
       fill: red;
     }
   }
+
+  .wrapper {
+    width: 100vw;
+    height: calc(100vh - 60px);
+    /* margin-top: 60px; */
+    padding: 20px;
+    background-color: #888888;
+  }
 `;

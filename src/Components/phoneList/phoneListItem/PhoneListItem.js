@@ -13,11 +13,11 @@ const PhoneListItem = ({ phone, addToCart }) => {
           {phone.isSale ? "Действует акционная цена" : "В акции не участвует"}
         </p>
         {/* <p>{phone.description}</p> */}
-        <ul className="itemColorList">
+        {/* <ul className="itemColorList">
           {phone.colors.map((color) => (
             <PhoneColorsListItem key={color} colorListItem={color} />
           ))}
-        </ul>
+        </ul> */}
         <p>
           Цена: <span>{phone.price}</span>
         </p>
