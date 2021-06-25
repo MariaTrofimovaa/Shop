@@ -1,29 +1,21 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
+  height: 60px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
-  background-color: #cbf0f0;
-  padding: 0 20px;
+  border-bottom: 2px solid #819ff5;
+  background-color: #424242;
 
-  .headerLogo {
-    width: 30px;
-    height: 30px;
-    fill: blue;
-
-    :hover {
+  .headerIcon {
+    width: 40px;
+    height: 40px;
+    fill: #819ff5;
+    &:hover {
+      fill: #5f73a1;
       cursor: pointer;
-      fill: red;
     }
-  }
-
-  .wrapper {
-    width: 100vw;
-    height: calc(100vh - 60px);
-    /* margin-top: 60px; */
-    padding: 20px;
-    background-color: #888888;
   }
 `;

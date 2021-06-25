@@ -1,32 +1,57 @@
 import React from "react";
-import { PhoneColorsListItem, PhoneItemContainer } from "./PhoneListItemStyled";
+import { ColorItemLI, ListItemContainer } from "./PhoneListItemStyled";
+import { withRouter } from "react-router-dom";
 
-const PhoneListItem = ({ phone, addToCart }) => {
-  // const {name, image, isSale, description, price} = phone;
+const PhoneListItem = ({ phone, addToCart, history, match, location }) => {
+  const addProduct = () => {
+    addToCart(phone);
+  };
+  const openDetails = () => {
+    history.push({
+      pathname: `${match.path}/${phone.id}`,
+      state: { from: location.pathname },
+    });
+  };
   return (
-    <PhoneItemContainer>
-      <div className="itemWrapper">
-        <h3 className="itemTitle">{phone.name}</h3>
-        <img className="itemImage" src={phone.image} alt={phone.name} />
-        <p>
-          Sale:{" "}
-          {phone.isSale ? "Действует акционная цена" : "В акции не участвует"}
-        </p>
-        {/* <p>{phone.description}</p> */}
-        {/* <ul className="itemColorList">
+    <ListItemContainer>
+      <div className='content'>
+        <h3 className='listItemTitle'>{phone.name}</h3>
+        <div className='imageWrapper'>
+          <img src={phone.image} alt={phone.name} className='listItemImage' />
+        </div>
+
+        {/* <ul className='colorsList'>
           {phone.colors.map((color) => (
-            <PhoneColorsListItem key={color} colorListItem={color} />
+            <ColorItemLI key={color} color={color} />
           ))}
         </ul> */}
-        <p>
-          Цена: <span>{phone.price}</span>
+        <p className='priceTitle'>
+          {phone.isSale ? (
+            <>
+              <span className='withSalePrice'> {phone.price}</span>{" "}
+              <span className='withoutSalePrice'>
+                {(phone.price - phone.price / 10).toFixed(0)}
+              </span>
+            </>
+          ) : (
+            <span className='withoutSalePrice'>{phone.price}</span>
+          )}
+          {" грн"}
         </p>
-        <button type="button" onClick={() => addToCart(phone)}>
-          Добавить в корзину
-        </button>
+        <div className='options'>
+          <button
+            onClick={addProduct}
+            className='detailsButton'
+            onClick={openDetails}>
+            Детальнее
+          </button>
+          <button onClick={addProduct} className='addToCartButton'>
+            Добавить в корзину
+          </button>
+        </div>
       </div>
-    </PhoneItemContainer>
+    </ListItemContainer>
   );
 };
 
-export default PhoneListItem;
+export default withRouter(PhoneListItem);

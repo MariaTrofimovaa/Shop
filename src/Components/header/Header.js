@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
 import HeaderList from "./headerList/HeaderList";
+
+import sprite from "../../icons/header/symbol-defs.svg";
 import { HeaderContainer } from "./HeaderStyled";
-import sprite from "../../icons/header/header.svg";
 import Modal from "../modal/Modal";
 
 class Header extends Component {
@@ -14,40 +16,33 @@ class Header extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.handleResizeWindow);
   }
-
   componentWillUnmount() {
-    window.removeEventListenere("resize", this.handleResizeWindow);
+    window.removeEventListener("resize", this.handleResizeWindow);
   }
 
-  setModalState = () => {
-    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
-  };
+  handleResizeWindow = () => this.setState({ width: window.innerWidth });
 
-  handleResizeWindow = () => {
-    this.setState({ width: window.innerWidth });
-  };
+  setModalState = () =>
+    this.setState((prev) => ({ isModalOpen: !prev.isModalOpen }));
 
   render() {
     const { width, breakPoint, isModalOpen } = this.state;
-
     return (
       <HeaderContainer>
-        {isModalOpen && width < breakPoint && (
-          <Modal hideModal={this.setModalState}>
-            <div className="wrapper">
-              <HeaderList />
-            </div>
-          </Modal>
-        )}
-        <svg className="headerLogo">
-          <use href={sprite + "#icon-home3"} />
+        <svg className='headerIcon'>
+          <use href={sprite + "#icon-home"} />
         </svg>
         {width < breakPoint ? (
-          <svg className="headerLogo" onClick={this.setModalState}>
+          <svg className='headerIcon' onClick={this.setModalState}>
             <use href={sprite + "#icon-menu"} />
           </svg>
         ) : (
-          <HeaderList />
+          <HeaderList data={this.props.data} />
+        )}
+        {isModalOpen && (
+          <Modal hideModal={this.setModalState}>
+            <HeaderList data={this.props.data} hideModal={this.setModalState} />
+          </Modal>
         )}
       </HeaderContainer>
     );

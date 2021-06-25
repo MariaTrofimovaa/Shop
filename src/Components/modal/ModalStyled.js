@@ -4,21 +4,22 @@ export const ModalContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  margin-top: 60px;
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #000000b2;
   z-index: 1200;
   overflow: auto;
-  .modal {
+
+  .Modal {
     position: relative;
-    /* background-color: #3d3d3d; */
-    /* border-radius: 14px; */
+    background-color: #3d3d3d;
+    border-radius: 14px;
     overflow: hidden;
   }
+
   .modalIcon {
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }

@@ -1,113 +1,126 @@
 import React, { Component } from "react";
+import { AdvFormContainer } from "./AdvFormStyled";
 // import { v4 as uuidv4 } from "uuid";
 import { createNewAdv } from "../../services/api";
 
-const categories = ["phones", "laptops"];
+const productCategories = ["phones", "laptops"];
+
+const initialState = {
+  category: productCategories[0],
+  name: "",
+  image: "",
+  description: "",
+  price: 0,
+  isSale: false,
+};
 
 class AdvForm extends Component {
   state = {
-    name: "",
-    image: "",
-    description: "",
-    price: 0,
-    isSale: false,
-    colors: [],
-    category: categories[0],
+    ...initialState,
   };
 
-  onHandleChange = (evt) => {
-    const { name, value, checked, type } = evt.target;
+  onHandleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
-      this.setState({ [name]: checked }); // [name] - вычисляемое значение
+      this.setState({ [name]: checked });
       return;
     }
     this.setState({ [name]: value });
   };
-
-  onHandleSubmit = async (evt) => {
-    evt.preventDefault();
-    const response = await createNewAdv(this.state.category, this.state);
-
-    this.props.addProduct(this.state.category, {
-      ...this.state,
-      id: response.name,
-    });
+  onHandleSubmit = (e) => {
+    e.preventDefault();
+    createNewAdv(this.state.category, { ...this.state });
   };
+
   render() {
     return (
-      <div className="advFormWrapper">
-        <form className="advForm" onSubmit={this.onHandleSubmit}>
-          <label>
-            Категория
-            <select
-              type="text"
-              name="category"
-              value={this.state.category}
-              className="advFormInput"
-              onChange={this.onHandleChange}
-            >
-              {categories.map((category) => (
-                <option value={category} key={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Название продукта
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              className="advFormInput"
-              onChange={this.onHandleChange}
-            />
-          </label>
-          <label>
-            Изображение
-            <input
-              type="text"
-              name="image"
-              value={this.state.image}
-              className="advFormInput"
-              onChange={this.onHandleChange}
-            />
-          </label>
-          <label>
-            Описание
-            <textarea
-              type="text"
-              name="description"
-              value={this.state.description}
-              className="advFormInput"
-              onChange={this.onHandleChange}
-            />
-          </label>
-          <label>
-            Цена
-            <input
-              type="text"
-              name="price"
-              value={this.state.price}
-              className="advFormInput"
-              onChange={this.onHandleChange}
-            />
-          </label>
-          <label>
-            Скидка
-            <input
-              type="checkbox"
-              name="isSale"
-              checked={this.state.isSale}
-              className="advFormCheckBox"
-              onChange={this.onHandleChange}
-            />
-          </label>
-          <button type="submit">Добавить продукт</button>
+      <AdvFormContainer>
+        <form onSubmit={this.onHandleSubmit} className='advForm'>
+          <div className='advFormContent'>
+            <div className='leftColumn'>
+              <label className='advFormLabel'>
+                Категория
+                <select
+                  value={this.state.category}
+                  name='category'
+                  className='advFormInput'
+                  onChange={this.onHandleChange}>
+                  {productCategories.map((category) => (
+                    <option value={category} key={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className='advFormLabel'>
+                Название продукта
+                <input
+                  type='text'
+                  name='name'
+                  value={this.state.name}
+                  className='advFormInput'
+                  onChange={this.onHandleChange}
+                />
+              </label>
+              <label className='advFormLabel'>
+                Изображение
+                <input
+                  type='text'
+                  name='image'
+                  value={this.state.image}
+                  className='advFormInput'
+                  onChange={this.onHandleChange}
+                />
+              </label>
+            </div>
+            <div className='rightColumn'>
+              <label className='advFormLabel'>
+                Описание
+                <input
+                  type='text'
+                  name='description'
+                  value={this.state.description}
+                  className='advFormInput'
+                  onChange={this.onHandleChange}
+                />
+              </label>
+              <label className='advFormLabel'>
+                Цена
+                <input
+                  type='text'
+                  name='price'
+                  value={this.state.price}
+                  className='advFormInput'
+                  onChange={this.onHandleChange}
+                />
+              </label>
+              <label className='advFormLabelCheckBox'>
+                Учавствует в распродаже
+                <input
+                  type='checkbox'
+                  name='isSale'
+                  checked={this.state.isSale}
+                  className='advFormCheckBox'
+                  onChange={this.onHandleChange}
+                />
+              </label>
+            </div>
+          </div>
+          <button type='submit' className='submitButton'>
+            Добавить продукт
+          </button>
         </form>
-      </div>
+      </AdvFormContainer>
     );
   }
 }
 
 export default AdvForm;
+
+const arr = [
+  [100, 200],
+  [300, 500],
+];
+const [, [, y2]] = arr;
+console.log(y2);

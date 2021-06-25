@@ -1,49 +1,46 @@
 import { lazy } from "react";
 
-// import CartPage from "../pages/cartPage/CartPage";
-// import HomePage from "../pages/homePage/HomePage";
-// import ProductsPage from "../pages/products/Page/ProductsPage";
-// import AdminPage from "../pages/adminPage/AdminPage.js";
-// import AuthPage from "../pages/authPage/AuthPage";
-
-// const HomePage =
-
-export const mainRotes = [
+export const mainRoutes = [
   {
-    path: "/",
-    name: "Home",
+    name: "Profile",
+    path: "/profile",
+    component: lazy(() => import("../pages/ProfilePage")),
     exact: true,
-    component: lazy(() => import("../pages/homePage/HomePage")),
   },
-
+  {
+    name: "Home",
+    path: "/",
+    component: lazy(() => import("../pages/HomePage")),
+    exact: true,
+  },
   {
     name: "Products",
     path: "/products",
-    component: lazy(() => import("../pages/productsPage/ProductsPage")),
+    component: lazy(() => import("../pages/ProductsPage")),
     exact: false,
   },
   {
     name: "Cart",
     path: "/cart",
-    component: lazy(() => import("../pages/cartPage/CartPage")),
+    component: lazy(() => import("../pages/CartPage")),
     exact: true,
   },
   {
     name: "Administration",
     path: "/admin",
-    component: lazy(() => import("../pages/adminPage/AdminPage.js")),
+    component: lazy(() => import("../pages/AdminPage")),
     exact: true,
   },
   {
     name: "Registration",
     path: "/registration",
-    component: lazy(() => import("../pages/authPage/AuthPage")),
+    component: lazy(() => import("../pages/AuthPage")),
     exact: true,
   },
   {
     name: "Login",
     path: "/login",
-    component: lazy(() => import("../pages/authPage/AuthPage")),
+    component: lazy(() => import("../pages/AuthPage")),
     exact: true,
   },
 ];

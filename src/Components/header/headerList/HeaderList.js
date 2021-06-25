@@ -1,19 +1,22 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { mainRotes } from "../../../routes/mainRoutes";
+import { NavLink, withRouter } from "react-router-dom";
+import { mainRoutes } from "../../../routes/mainRoutes";
+
 import { HeaderNavigation } from "./HeaderListStyled";
 
-const HeaderList = () => {
+const HeaderList = ({ data, hideModal, match }) => {
+  console.log("match :>> ", match);
   return (
     <HeaderNavigation>
-      <ul className="headerList">
-        {mainRotes.map((route) => (
-          <li key={route.path} className="headerListItem">
+      <ul className='navigationList'>
+        {mainRoutes.map((route) => (
+          <li className='navigationListItem' key={route.path}>
             <NavLink
               to={route.path}
               exact={route.exact}
-              className="headerListLink"
-            >
+              className='navigationListItemAnchor'
+              activeClassName='navigationListItemActive'
+              onClick={hideModal}>
               {route.name}
             </NavLink>
           </li>
@@ -23,4 +26,4 @@ const HeaderList = () => {
   );
 };
 
-export default HeaderList;
+export default withRouter(HeaderList);
