@@ -1,6 +1,13 @@
 import React from "react";
-const CartPage = () => {
-  return <h2>CartPage</h2>;
+import CartList from "../../Components/cart/CartList";
+
+const CartPage = ({ data }) => {
+  return (
+    <>
+      <h2>CartPage</h2>
+      <CartList {...data} />
+    </>
+  );
 };
 
 export default CartPage;

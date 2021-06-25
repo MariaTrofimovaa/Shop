@@ -1,8 +1,24 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { NavLink, Switch, Route } from "react-router-dom";
 import { productsRoutes } from "../../routes/productsRoutes";
 
-const ProductsPage = ({ match }) => {
+const ProductsPage = ({ match, data }) => {
+  const getData = (path) => {
+    if (path === "/laptops") {
+      return {
+        laptops: data.laptops,
+        addToCart: data.addToCart,
+      };
+    }
+
+    if (path === "/phones") {
+      return {
+        phones: data.phones,
+        addToCart: data.addToCart,
+      };
+    }
+  };
+
   return (
     <>
       <h2>ProductsPage</h2>
@@ -19,17 +35,19 @@ const ProductsPage = ({ match }) => {
           </li>
         ))}
       </ul>
-
-      <Switch>
-        {productsRoutes.map((route) => (
-          <Route
-            path={match.path + route.path}
-            exact={route.exact}
-            component={route.component}
-            key={route.path}
-          />
-        ))}
-      </Switch>
+      <Suspense>
+        <Switch>
+          {productsRoutes.map(({ path, exact, component: MyComponent }) => (
+            <Route
+              path={match.path + path}
+              exact={exact}
+              // component={component}
+              render={(props) => <MyComponent {...props} {...getData(path)} />}
+              key={path}
+            />
+          ))}
+        </Switch>
+      </Suspense>
     </>
   );
 };

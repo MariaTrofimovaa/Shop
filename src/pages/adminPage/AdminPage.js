@@ -1,7 +1,13 @@
 import React from "react";
+import AdvForms from "../../Components/admin/AdvForm";
 
-const AdminPage = () => {
-  return <h2>AdminPage</h2>;
+const AdminPage = ({ data }) => {
+  return (
+    <>
+      <h2>AdminPage</h2>
+      <AdvForms {...data} />;
+    </>
+  );
 };
 
 export default AdminPage;

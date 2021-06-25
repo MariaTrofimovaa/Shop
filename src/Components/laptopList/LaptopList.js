@@ -1,13 +1,13 @@
 import React from "react";
 import LaptopListItem from "./laptopListItem/LaptopListItem";
 
-const LaptopList = ({ laptops }) => {
+const LaptopList = ({ laptops = [] }) => {
   return (
     <ul>
       <h2>LaptopList</h2>
-      {/* {laptops.map((laptop) => (
+      {laptops.map((laptop) => (
         <LaptopListItem laptop={laptop} key={laptop.id} />
-      ))} */}
+      ))}
     </ul>
   );
 };

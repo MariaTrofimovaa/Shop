@@ -1,7 +1,7 @@
 import React from "react";
 import CartListItem from "./cartListItem/CartListItem";
 
-const CartList = ({ cart, removeFromCart, createOrder }) => {
+const CartList = ({ cart , removeFromCart, createOrder }) => {
   return (
     <>
       {cart.length ? (

@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
-import HomePage from "../../pages/homePage/HomePage";
-import ProductsPage from "../../pages/productsPage/ProductsPage";
-import CartPage from "../../pages/cartPage/CartPage";
+// import HomePage from "../../pages/homePage/HomePage";
+// import ProductsPage from "../../pages/productsPage/ProductsPage";
+// import CartPage from "../../pages/cartPage/CartPage";
 // import data from "../../data";
 import { createNewOrder, getAllAdvByCategory } from "../../services/api";
-import AdvForm from "../admin/AdvForm";
-import CartList from "../cart/CartList";
-import LaptopList from "../laptopList/LaptopList";
-import PhoneList from "../phoneList/PhoneList";
-import Section from "../section/Section";
+// import AdvForm from "../admin/AdvForm";
+// import CartList from "../cart/CartList";
+// import LaptopList from "../laptopList/LaptopList";
+// import PhoneList from "../phoneList/PhoneList";
+// import Section from "../section/Section";
 import { mainRotes } from "../../routes/mainRoutes";
 
 class Main extends Component {
@@ -74,19 +74,49 @@ class Main extends Component {
   // удаление всех элементов из корзины
   removeAllFromCart = () => this.setState({ cart: [] });
 
+  getData = (path) => {
+    if (path === "/cart") {
+      return {
+        cart: this.state.cart,
+        removeFromCart: this.removeFromCart,
+        createOrder: this.createOrder,
+      };
+    }
+
+    if (path === "/products") {
+      return {
+        phones: this.state.phones,
+        laptops: this.state.laptops,
+        addToCart: this.addToCart,
+      };
+    }
+
+    if (path === "/admin") {
+      return {
+        addProduct: this.addProduct,
+      };
+    }
+    return null;
+  };
+
   render() {
     return (
       <main>
-        <Switch>
-          {mainRotes.map((route) => (
-            <Route
-              path={route.path}
-              exact={route.exact}
-              component={route.component}
-              key={route.path}
-            />
-          ))}
-        </Switch>
+        <Suspense fallback={<h2>... Loading</h2>}>
+          <Switch>
+            {mainRotes.map(({ path, exact, component: MyComponent }) => (
+              <Route
+                path={path}
+                exact={exact}
+                // component={component}
+                render={(props) => (
+                  <MyComponent {...props} data={this.getData(path)} />
+                )}
+                key={path}
+              />
+            ))}
+          </Switch>
+        </Suspense>
         {/* <Section title="Новое объявление">
           <AdvForm addProduct={this.addProduct} />
         </Section>
