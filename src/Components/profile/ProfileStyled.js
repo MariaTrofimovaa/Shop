@@ -37,19 +37,15 @@ export const ProfileFormContainer = styled.div`
 
   @media (min-width: 768px) {
     .profileFormContent {
-      /* justify-content: center;
-      width: 70%; */
-    }
 
-    .submitButton {
-      margin-top: 20px;
+      margin: 0 auto;
+      width: 70%;
     }
   }
 
   @media (min-width: 1024px) {
     .profileFormContent {
-      justify-content: center;
-      /* width: 50%; */
+      width: 50%;
     }
   }
 `;

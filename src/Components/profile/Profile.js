@@ -4,17 +4,21 @@ import { getProfileInfo } from "../../redux/profile/profileActions";
 import { createProfile, getProfileData } from "../../services/api";
 import { ProfileFormContainer } from "./ProfileStyled";
 
+const initialState = {
+  userName: "",
+  dayOfBirth: "",
+  email: "",
+  phone: "",
+  additionalInfo: "",
+};
+
 class Profile extends Component {
   state = {
-    userName: "",
-    dayOfBirth: "",
-    email: "",
-    phone: "",
-    additionalInfo: "",
+    ...initialState,
   };
 
   componentDidMount() {
-    // getProfileData().then((res) => this.props.getProfileInfo(res));
+    getProfileData().then((res) => this.props.getProfileInfo(res));
   }
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,20 +28,12 @@ class Profile extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     await createProfile(this.state);
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({
-      userName: "",
-      dayOfBirth: "",
-      email: "",
-      phone: "",
-      additionalInfo: "",
-    });
+    this.setState({ ...initialState });
   };
 
   render() {
+    const { userName, dayOfBirth, email, phone, additionalInfo } = this.state;
+
     return (
       <ProfileFormContainer>
         {this.props.profile ? (
@@ -72,7 +68,7 @@ class Profile extends Component {
                   type="text"
                   name="userName"
                   placeholder="USER NAME:"
-                  value={this.state.userName}
+                  value={userName}
                   onChange={this.handleChange}
                 ></input>
               </label>
@@ -83,7 +79,7 @@ class Profile extends Component {
                   type="text"
                   name="dayOfBirth"
                   placeholder="BIRTHDAY:"
-                  value={this.state.dayOfBirth}
+                  value={dayOfBirth}
                   onChange={this.handleChange}
                 ></input>
               </label>
@@ -94,7 +90,7 @@ class Profile extends Component {
                   type="text"
                   name="email"
                   placeholder="E-MAIL:"
-                  value={this.state.email}
+                  value={email}
                   onChange={this.handleChange}
                 ></input>
               </label>
@@ -104,8 +100,8 @@ class Profile extends Component {
                   className="profileInputData"
                   type="text"
                   name="phone"
-                  placeholder="Phone:"
-                  value={this.state.phone}
+                  placeholder="PHONE:"
+                  value={phone}
                   onChange={this.handleChange}
                 ></input>
               </label>
@@ -116,12 +112,12 @@ class Profile extends Component {
                   type="text"
                   name="additionalInfo"
                   placeholder="ADDITIONAL INFO:"
-                  value={this.state.additionalInfo}
+                  value={additionalInfo}
                   onChange={this.handleChange}
                 ></input>
               </label>
               <button type="submit" className="submitButton">
-                Sign in
+                ADD PROFILE
               </button>
             </div>
           </form>
