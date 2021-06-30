@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProfileInfo } from "../../redux/profile/profileActions";
 import { createProfile, getProfileData } from "../../services/api";
+import { ProfileFormContainer } from "./ProfileStyled";
 
 class Profile extends Component {
   state = {
-    firstName: "",
-    lastName: "",
-    tag: "",
+    userName: "",
+    dayOfBirth: "",
+    email: "",
     phone: "",
+    additionalInfo: "",
   };
 
   componentDidMount() {
-    getProfileData().then((res) => this.props.getProfileInfo(res));
+    // getProfileData().then((res) => this.props.getProfileInfo(res));
   }
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,65 +28,105 @@ class Profile extends Component {
   };
 
   reset = () => {
-    this.setState({ firstName: "", lastName: "", tag: "", phone: "" });
+    this.setState({
+      userName: "",
+      dayOfBirth: "",
+      email: "",
+      phone: "",
+      additionalInfo: "",
+    });
   };
 
   render() {
     return (
-      <div className="formContainer">
+      <ProfileFormContainer>
         {this.props.profile ? (
-          <p>{this.props.profile.firstName}</p>
+          <div className="profileFormContent">
+            <p>
+              <span className="userInfo">Name: </span>
+              {this.props.profile.userName}
+            </p>
+            <p>
+              <span className="userInfo">Birthday: </span>
+              {this.props.profile.dayOfBirth}
+            </p>
+            <p>
+              <span className="userInfo">E-mail: </span>
+              {this.props.profile.email}
+            </p>
+            <p>
+              <span className="userInfo">Phone: </span>
+              {this.props.profile.phone}
+            </p>
+            <p>
+              <span className="userInfo">Additional info: </span>
+              {this.props.profile.additionalInfo}
+            </p>
+          </div>
         ) : (
           <form onSubmit={this.handleSubmit}>
-            <label>
-              <input
-                className="inputData"
-                type="text"
-                name="firstName"
-                placeholder="Name:"
-                value={this.state.firstName}
-                onChange={this.handleChange}
-              ></input>
-            </label>
+            <div className="profileFormContent">
+              <label className="profileFormLabel">
+                <input
+                  className="profileInputData"
+                  type="text"
+                  name="userName"
+                  placeholder="USER NAME:"
+                  value={this.state.userName}
+                  onChange={this.handleChange}
+                ></input>
+              </label>
 
-            <label>
-              <input
-                className="inputData"
-                type="text"
-                name="lastName"
-                placeholder="Last Name:"
-                value={this.state.lastName}
-                onChange={this.handleChange}
-              ></input>
-            </label>
+              <label className="profileFormLabel">
+                <input
+                  className="profileInputData"
+                  type="text"
+                  name="dayOfBirth"
+                  placeholder="BIRTHDAY:"
+                  value={this.state.dayOfBirth}
+                  onChange={this.handleChange}
+                ></input>
+              </label>
 
-            <label>
-              <input
-                className="inputData"
-                type="text"
-                name="tag"
-                placeholder="Tag:"
-                value={this.state.tag}
-                onChange={this.handleChange}
-              ></input>
-            </label>
+              <label className="profileFormLabel">
+                <input
+                  className="profileInputData"
+                  type="text"
+                  name="email"
+                  placeholder="E-MAIL:"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                ></input>
+              </label>
 
-            <label>
-              <input
-                className="inputData"
-                type="text"
-                name="phone"
-                placeholder="Phone:"
-                value={this.state.phone}
-                onChange={this.handleChange}
-              ></input>
-            </label>
-            <button type="submit" className="signInBtn">
-              Sign in
-            </button>
+              <label className="profileFormLabel">
+                <input
+                  className="profileInputData"
+                  type="text"
+                  name="phone"
+                  placeholder="Phone:"
+                  value={this.state.phone}
+                  onChange={this.handleChange}
+                ></input>
+              </label>
+
+              <label className="profileFormLabel">
+                <input
+                  className="profileInputData"
+                  type="text"
+                  name="additionalInfo"
+                  placeholder="ADDITIONAL INFO:"
+                  value={this.state.additionalInfo}
+                  onChange={this.handleChange}
+                ></input>
+              </label>
+              <button type="submit" className="submitButton">
+                Sign in
+              </button>
+            </div>
           </form>
         )}
-      </div>
+      </ProfileFormContainer>
     );
   }
 }

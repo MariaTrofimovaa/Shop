@@ -52,7 +52,7 @@ export const getAllAdvByCategory = async (category) => {
   }
 };
 
-// ===================== PROFILE
+// ===================== PROFILE ===================== //
 
 export const createProfile = async (user) => {
   try {
@@ -65,7 +65,8 @@ export const createProfile = async (user) => {
 export const getProfileData = async () => {
   try {
     const response = await axios.get(
-      baseURL + `profile/-Md2RQlzFqYP20eKXjh8.json`
+      baseURL + `profile/-MdMC5rTM35ycYJJJ4PF.json`
+      // baseURL + `profile/-MdRWFAbGwmKIwB3Sr37.json`
     );
     return response.data;
   } catch (error) {
